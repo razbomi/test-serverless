@@ -2,4 +2,4 @@
 
 Read from dynamodb
 
-```sls deploye``` 
+```sls deploy``` 
