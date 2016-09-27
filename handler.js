@@ -1,8 +1,23 @@
 'use strict';
 
-// Your first function handler
-module.exports.hello = (event, context, cb) => {
-  cb(null, { message: 'Go Serverless v1.0! Your function executed successfully!', event });
-};
+const AWS = require('aws-sdk');
+const docClient = new AWS.DynamoDB.DocumentClient();
 
-// You can add more handlers here, and reference them in serverless.yml
+module.exports.hello = (event, context, callback) => {
+  console.log(event);
+
+  var params = {
+    TableName : 'my-table',
+    Key: {
+      my_key: '006af011-61ae-4959-9451-ad5a1218fc5c'
+    }
+  };
+
+  docClient.get(params, function(err, data) {
+      if (err) console.log(err);
+      else {
+        console.log(data);
+        callback(null, data);
+      }
+  });
+};
